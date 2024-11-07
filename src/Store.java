@@ -1,44 +1,36 @@
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class Store {
+public class Store implements ReceiptPrintable{
     private String name;
-    private String type;
+    private double total = 0;
     private ArrayList<Receipt> receipts = new ArrayList<>();
 
-    public Store(String name, String type) {
+    public Store(String name) {
         this.name = name;
-        this.type = type;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getType() {
-        return type;
+    @Override
+    public String toString() {
+        return name;
     }
 
-    public ArrayList<Receipt> getReceipts() {
-        return receipts;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setReceipts(ArrayList<Receipt> receipts) {
-        this.receipts = receipts;
-    }
-
-    /**
-     * Adds a receipt to store's related receipts list.
-     * @param receipt New receipt to add.
-     */
-    public void addReceipts(Receipt receipt) {
+    public void addReceipt(Receipt receipt) {
         receipts.add(receipt);
+        total += receipt.getTotal();
+    }
+
+    @Override
+    public void viewReceipts() {
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+
+        System.out.println("Receipts for store " + name + ".");
+        for (Receipt receipt : receipts){
+            receipt.viewReceipt();
+        }
     }
 }

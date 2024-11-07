@@ -1,12 +1,13 @@
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
  * Generic payment type. Used for basic payments like cash.
  */
-public class Payment {
-    private String type;
-    private double total = 0;
-    private ArrayList<Receipt> receipts = new ArrayList<>();
+public class Payment implements ReceiptPrintable{
+    protected String type;
+    protected double total = 0;
+    protected ArrayList<Receipt> receipts = new ArrayList<>();
 
     public Payment(String type) {
         this.type = type;
@@ -36,20 +37,28 @@ public class Payment {
         this.receipts = receipts;
     }
 
-    /**
-     * The function serves to add a new charge onto the payment.
-     * @param newCharge Ammount to add to payment type
-     */
     public void addToTotal(double newCharge) {
         this.total += newCharge;
     }
 
-    /**
-     * Adds a receipt to payment's receipt list.
-     * @param receipt New receipt to add to related receipts list.
-     */
     public void addReceipt(Receipt receipt){
+
         receipts.add(receipt);
+        total += receipt.getTotal();
     }
 
+    @Override
+    public void viewReceipts(){
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+
+        System.out.println("Receipts for payment method " + this + ".");
+        for (Receipt receipt : receipts){
+            receipt.viewReceipt();
+        }
+    }
+
+    @Override
+    public String toString(){
+        return type;
+    }
 }
