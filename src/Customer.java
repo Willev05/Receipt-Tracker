@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class Customer extends ReceiptsPrintable{
@@ -12,6 +13,7 @@ public class Customer extends ReceiptsPrintable{
         return name;
     }
 
+
     public void addReceipt(Receipt receipt) {
         receipts.add(receipt);
         total += receipt.getTotal();
@@ -24,5 +26,20 @@ public class Customer extends ReceiptsPrintable{
 
     public void viewReceipts() {
         viewReceiptsHelper("Receipts for customer " + name + ".");
+    }
+
+    public void generateReport(){
+        NumberFormat format =  NumberFormat.getCurrencyInstance();
+        System.out.println("-----------Report-----------");
+        System.out.println("Report for customer name " + name + ".");
+        System.out.println("Total spent: " + format.format(total));
+        System.out.println("\nTotal spent per store:");
+        ListHelper.printStoresWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per payment option: ");
+        ListHelper.printPaymentsWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per item type: ");
+        ListHelper.printItemTypesWithTotalSpentFromReceipts(receipts);
     }
 }

@@ -170,8 +170,23 @@ public class ReceiptSystem {
                     break;
 
                 case 3:
-                    // Generate reports
-                    // Implement report generation methods here
+                    System.out.println("Generate report by:");
+                    System.out.println("1. Customer");
+                    System.out.println("2. Store");
+                    System.out.println("3. Payment type");
+                    System.out.println("4. Item type");
+                    int genrateChoice = getIntWithVerification(scanner, "Enter your choice: ");
+
+                    if (genrateChoice == 1){
+                        System.out.print("Enter customer name: ");
+                        String customerNameToView = scanner.next();
+                        Customer customerToView = findCustomerByName(customers, customerNameToView);
+                        if (customerToView != null) {
+                            customerToView.generateReport();
+                        } else {
+                            System.out.println("Customer not found.");
+                        }
+                    }
                     break;
 
                 case 4:

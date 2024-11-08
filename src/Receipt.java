@@ -45,6 +45,18 @@ public class Receipt{
         return type;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
     public void calculateTotal(){
         for (Item item : items){
             total += item.getTotal();

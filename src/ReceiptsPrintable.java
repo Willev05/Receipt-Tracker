@@ -1,7 +1,7 @@
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class ReceiptsPrintable {
+abstract class ReceiptsPrintable {
     protected ArrayList<Receipt> receipts = new ArrayList<>();
 
     protected void viewReceiptsHelper(String message) {
