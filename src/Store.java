@@ -1,10 +1,9 @@
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class Store implements ReceiptPrintable{
+public class Store extends ReceiptsPrintable{
     private String name;
     private double total = 0;
-    private ArrayList<Receipt> receipts = new ArrayList<>();
 
     public Store(String name) {
         this.name = name;
@@ -24,13 +23,7 @@ public class Store implements ReceiptPrintable{
         total += receipt.getTotal();
     }
 
-    @Override
     public void viewReceipts() {
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-
-        System.out.println("Receipts for store " + name + ".");
-        for (Receipt receipt : receipts){
-            receipt.viewReceipt();
-        }
+        viewReceiptsHelper("Receipts for store " + name + ".");
     }
 }

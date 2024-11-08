@@ -4,10 +4,9 @@ import java.util.ArrayList;
 /**
  * Generic payment type. Used for basic payments like cash.
  */
-public class Payment implements ReceiptPrintable{
+public class Payment extends ReceiptsPrintable{
     protected String type;
     protected double total = 0;
-    protected ArrayList<Receipt> receipts = new ArrayList<>();
 
     public Payment(String type) {
         this.type = type;
@@ -47,14 +46,8 @@ public class Payment implements ReceiptPrintable{
         total += receipt.getTotal();
     }
 
-    @Override
     public void viewReceipts(){
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-
-        System.out.println("Receipts for payment method " + this + ".");
-        for (Receipt receipt : receipts){
-            receipt.viewReceipt();
-        }
+        viewReceiptsHelper("Receipts for payment method " + this + ".");
     }
 
     @Override
