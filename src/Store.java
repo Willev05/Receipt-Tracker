@@ -26,4 +26,19 @@ public class Store extends ReceiptsPrintable{
     public void viewReceipts() {
         viewReceiptsHelper("Receipts for store " + name + ".");
     }
+
+    public void generateReport(){
+        NumberFormat format =  NumberFormat.getCurrencyInstance();
+        System.out.println("\n-----------Report-----------");
+        System.out.println("Report for store " + name + ".");
+        System.out.println("Total spent: " + format.format(total));
+        System.out.println("\nTotal spent per customer:");
+        ListHelper.printCustomersWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per payment option: ");
+        ListHelper.printPaymentsWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per item type: ");
+        ListHelper.printItemTypesWithTotalSpentFromReceipts(receipts);
+    }
 }

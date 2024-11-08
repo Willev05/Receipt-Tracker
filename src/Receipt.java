@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 public class Receipt{
     private static int nextId = 0;
+    private static double taxRate = 0;
     private int id;
     private Store store;
     private Customer customer;
     private Payment payment;
     private String type;
+    private double subTotal = 0;
+    private double tax = 0;
     private double total = 0;
     private ArrayList<Item> items = new ArrayList<>();
 
@@ -31,6 +34,10 @@ public class Receipt{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public static void setTaxRate(double taxRate) {
+        Receipt.taxRate = (taxRate / 100);
     }
 
     public void addItem(Item item){
@@ -59,8 +66,10 @@ public class Receipt{
 
     public void calculateTotal(){
         for (Item item : items){
-            total += item.getTotal();
+            subTotal += item.getTotal();
         }
+        tax = subTotal * taxRate;
+        total = subTotal + tax;
     }
 
     public void viewReceipt(){
@@ -79,6 +88,8 @@ public class Receipt{
         }
 
         System.out.println();
+        System.out.println("Subtotal: " + format.format(subTotal));
+        System.out.println("Tax: " + format.format(tax) + " @ " + taxRate * 100 + "%");
         System.out.println("Total: " + format.format(total));
         System.out.println("Payed with " + payment);
         System.out.println("-----------------------");
@@ -91,5 +102,28 @@ public class Receipt{
         for (Receipt receipt : receipts){
             receipt.viewReceipt();
         }
+    }
+
+    public static void generateReport(ArrayList<Receipt> receipts, String type){
+        NumberFormat format =  NumberFormat.getCurrencyInstance();
+        System.out.println("\n-----------Report-----------");
+        System.out.println("Report for item type " + type + ".");
+        System.out.println("Total spent: " + format.format(getTotalFromReceiptList(receipts)));
+        System.out.println("\nTotal spent per customer:");
+        ListHelper.printCustomersWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per store: ");
+        ListHelper.printStoresWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per payment option: ");
+        ListHelper.printPaymentsWithTotalSpentFromReceipts(receipts);
+    }
+
+    private static double getTotalFromReceiptList(ArrayList<Receipt> receipts){
+        double total = 0;
+        for (Receipt receipt : receipts){
+            total += receipt.getTotal();
+        }
+        return total;
     }
 }

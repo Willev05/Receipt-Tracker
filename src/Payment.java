@@ -50,6 +50,21 @@ public class Payment extends ReceiptsPrintable{
         viewReceiptsHelper("Receipts for payment method " + this + ".");
     }
 
+    public void generateReport(){
+        NumberFormat format =  NumberFormat.getCurrencyInstance();
+        System.out.println("\n-----------Report-----------");
+        System.out.println("Report for payment option " + this + ".");
+        System.out.println("Total spent: " + format.format(total));
+        System.out.println("\nTotal spent per customer:");
+        ListHelper.printCustomersWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per store: ");
+        ListHelper.printStoresWithTotalSpentFromReceipts(receipts);
+
+        System.out.println("\nTotal spent per item type: ");
+        ListHelper.printItemTypesWithTotalSpentFromReceipts(receipts);
+    }
+
     @Override
     public String toString(){
         return type;

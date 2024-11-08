@@ -21,13 +21,20 @@ public class ReceiptSystem {
         // Default payment type of cash is created
         payments.add(new Payment("Cash"));
 
+        //Welcome message explaining some things about the program and requesting tax rates.
+        System.out.println("This application logs receipts and helps track spending per customer, store, payment options and item types.");
+        int taxPercent = getIntWithVerification(scanner, "Please enter tax rate for your region (in %): ");
+        Receipt.setTaxRate(taxPercent);
+
         // Main loop to interact with the user
         while (true) {
+            System.out.println();
             System.out.println("1. Add Receipt");
             System.out.println("2. View Receipts");
             System.out.println("3. Generate Reports");
             System.out.println("4. Exit");
             int choice = getIntWithVerification(scanner, "Enter your choice: ");
+            boolean invalid = true;
 
             switch (choice) {
                 case 1:
@@ -72,7 +79,7 @@ public class ReceiptSystem {
                     }
 
                     //gets user to select payment type from a list, or create a new one
-                    boolean invalid = true;
+                    invalid = true;
                     Payment payment = new Payment("");
                     do {
                         System.out.println("\nPayment methods:");
@@ -108,15 +115,19 @@ public class ReceiptSystem {
                     customer.addReceipt(receipt);
                     payment.addReceipt(receipt);
 
+                    //show receipt at the end
+                    receipt.viewReceipt();
+
                     break;
 
                 case 2:
                     // View receipts
-                    System.out.println("View receipts by:");
+                    System.out.println("\nView receipts by:");
                     System.out.println("1. Customer");
                     System.out.println("2. Store");
                     System.out.println("3. Payment type");
                     System.out.println("4. Item type");
+                    System.out.println("5. View all receipts");
                     int viewChoice = getIntWithVerification(scanner, "Enter your choice: ");
 
                     if (viewChoice == 1) {
@@ -164,13 +175,29 @@ public class ReceiptSystem {
                         System.out.print("Enter item type : ");
                         String itemTypeToView = scanner.next();
                         ArrayList<Receipt> receiptsToView = findReceiptsByType(receipts ,itemTypeToView);
-                        Receipt.viewReceipts(receiptsToView, itemTypeToView);
+                        if (!receiptsToView.isEmpty()){
+                            Receipt.viewReceipts(receiptsToView, itemTypeToView);
+                        }
+                        else {
+                            System.out.println("Item type not found.");
+                        }
+                    }
+                    else if (viewChoice == 5){
+                        System.out.println();
+                        if (!receipts.isEmpty()){
+                            for (Receipt receiptToView : receipts){
+                                receiptToView.viewReceipt();
+                            }
+                        }
+                        else {
+                            System.out.println("No receipts have been entered yet.");
+                        }
                     }
 
                     break;
 
                 case 3:
-                    System.out.println("Generate report by:");
+                    System.out.println("\nGenerate report by:");
                     System.out.println("1. Customer");
                     System.out.println("2. Store");
                     System.out.println("3. Payment type");
@@ -185,6 +212,51 @@ public class ReceiptSystem {
                             customerToView.generateReport();
                         } else {
                             System.out.println("Customer not found.");
+                        }
+                    }
+                    else if (genrateChoice == 2){
+                        System.out.print("Enter store name: ");
+                        String storeNameToView = scanner.next();
+                        Store storeToView = findStoreByName(stores, storeNameToView);
+                        if (storeToView != null) {
+                            storeToView.generateReport();
+                        } else {
+                            System.out.println("Store not found.");
+                        }
+                    }
+                    else if (genrateChoice == 3){
+                        invalid = true;
+                        Payment paymentToView = new Payment("");
+                        do {
+                            System.out.println("\nPayment methods:");
+                            int counter = 1;
+                            for (Payment paymentDisplay : payments){
+                                System.out.println(counter + ". " + paymentDisplay);
+                                counter++;
+                            }
+
+                            int paymentChoice = getIntWithVerification(scanner, "Please select wanted payment method (number): ");
+                            if (paymentChoice > payments.size()|| 1 > paymentChoice){
+                                System.out.println("Invalid selection! Please enter a number corresponding to the options above");
+                            }
+                            else{
+                                invalid = false;
+                                paymentToView = payments.get(paymentChoice - 1);
+                            }
+
+                        } while (invalid);
+
+                        paymentToView.generateReport();
+                    }
+                    else if (genrateChoice == 4){
+                        System.out.print("Enter item type : ");
+                        String itemTypeToView = scanner.next();
+                        ArrayList<Receipt> receiptsToView = findReceiptsByType(receipts ,itemTypeToView);
+                        if (!receiptsToView.isEmpty()){
+                            Receipt.generateReport(receiptsToView, itemTypeToView);
+                        }
+                        else {
+                            System.out.println("Item type not found.");
                         }
                     }
                     break;

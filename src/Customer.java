@@ -30,8 +30,8 @@ public class Customer extends ReceiptsPrintable{
 
     public void generateReport(){
         NumberFormat format =  NumberFormat.getCurrencyInstance();
-        System.out.println("-----------Report-----------");
-        System.out.println("Report for customer name " + name + ".");
+        System.out.println("\n-----------Report-----------");
+        System.out.println("Report for customer " + name + ".");
         System.out.println("Total spent: " + format.format(total));
         System.out.println("\nTotal spent per store:");
         ListHelper.printStoresWithTotalSpentFromReceipts(receipts);
