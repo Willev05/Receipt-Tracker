@@ -2,24 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReceiptSystem {
-    public static void main(String[] args) {
+    // Create a list to store receipts
+    protected static ArrayList<Receipt> receipts = new ArrayList<>();
+
+    // Create a list to store customers
+    protected static ArrayList<Customer> customers = new ArrayList<>();
+
+    // Create a list to store stores
+    protected static ArrayList<Store> stores = new ArrayList<>();
+
+    // Create a list of payment types
+    protected static ArrayList<Payment> payments = new ArrayList<>();
+
+    // Default payment type of cash is created
+
+    public static void mainOld() {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\\n");
-
-        // Create a list to store receipts
-        ArrayList<Receipt> receipts = new ArrayList<>();
-
-        // Create a list to store customers
-        ArrayList<Customer> customers = new ArrayList<>();
-
-        // Create a list to store stores
-        ArrayList<Store> stores = new ArrayList<>();
-
-        // Create a list of payment types
-        ArrayList<Payment> payments = new ArrayList<>();
-
-        // Default payment type of cash is created
-        payments.add(new Payment("Cash"));
 
         //Welcome message explaining some things about the program and requesting tax rates.
         System.out.println("This application logs receipts and helps track spending per customer, store, payment options and item types.");
