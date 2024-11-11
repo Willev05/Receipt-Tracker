@@ -1,5 +1,6 @@
 import java.text.NumberFormat;
 
+//Represent an Item on a Receipt
 public class Item {
     private String name;
     private double price;
@@ -15,6 +16,7 @@ public class Item {
         return price * quantity;
     }
 
+    //Neatly formats an item into a string
     @Override
     public String toString(){
         NumberFormat format = NumberFormat.getCurrencyInstance();

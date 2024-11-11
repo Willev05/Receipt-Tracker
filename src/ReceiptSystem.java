@@ -270,24 +270,27 @@ public class ReceiptSystem {
     }
 
     // Helper methods
+    //Find a customer through its name, if not found, returns null
     private static Customer findCustomerByName(ArrayList<Customer> customers, String name) {
         for (Customer customer : customers){
-            if (customer.getName().equals(name)){
+            if (String.valueOf(customer).equals(name)){
                 return customer;
             }
         }
         return null;
     }
 
+    //Find a store through its name, if not found, returns null
     private static Store findStoreByName(ArrayList<Store> stores, String name) {
         for (Store store : stores){
-            if (store.getName().equals(name)){
+            if (String.valueOf(store).equals(name)){
                     return store;
             }
         }
         return null;
     }
 
+    //Find a receipt through its type, if not found, returns null
     private static ArrayList<Receipt> findReceiptsByType(ArrayList<Receipt> receipts, String type){
         ArrayList<Receipt> receiptOfType = new ArrayList<>();
         for (Receipt receipt : receipts){
@@ -298,6 +301,7 @@ public class ReceiptSystem {
         return receiptOfType;
     }
 
+    //Gets an integer from the user. Verifies the input to make sure it is of type integer.
     private static int getIntWithVerification(Scanner scan, String message){
         while (true) {
             System.out.print(message);
@@ -309,6 +313,7 @@ public class ReceiptSystem {
         }
     }
 
+    //Gets a double from the user. Verifies the input to make sure it is of type double.
     private static double getDoubleWithVerification(Scanner scan, String message){
         while (true){
             System.out.print(message);
