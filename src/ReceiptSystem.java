@@ -90,16 +90,19 @@ public class ReceiptSystem {
                         }
                         System.out.println(counter + ". Enter new card payment type\n");
 
+                        //gets the choice from the user
                         int paymentChoice = getIntWithVerification(scanner, "Please select payment method used (number): ");
                         if (paymentChoice > payments.size() + 1 || 1 > paymentChoice){
                             System.out.println("Invalid selection! Please enter a number corresponding to the options above");
                         }
                         else if (paymentChoice == payments.size() + 1){
+                            //If the user selected crate new payment, then get new payment object and add it to list
                             invalid = false;
                             payment = CardPayment.createNewCardPayment();
                             payments.add(payment);
                         }
                         else{
+                            //get payment if already exists
                             invalid = false;
                             payment = payments.get(paymentChoice - 1);
                         }
@@ -131,6 +134,7 @@ public class ReceiptSystem {
                     int viewChoice = getIntWithVerification(scanner, "Enter your choice: ");
 
                     if (viewChoice == 1) {
+                        //If customer selected, try to find it in the list and print receipts if found
                         System.out.print("Enter customer name: ");
                         String customerNameToView = scanner.next();
                         Customer customerToView = findCustomerByName(customers, customerNameToView);
@@ -140,6 +144,7 @@ public class ReceiptSystem {
                             System.out.println("Customer not found.");
                         }
                     } else if (viewChoice == 2) {
+                        //If store selected, try to find it in the list and print receipt if found
                         System.out.print("Enter store name: ");
                         String storeNameToView = scanner.next();
                         Store storeToView = findStoreByName(stores, storeNameToView);
@@ -149,6 +154,7 @@ public class ReceiptSystem {
                             System.out.println("Store not found.");
                         }
                     } else if (viewChoice == 3) {
+                        //If payment type is selected, get user to select it from a list
                         invalid = true;
                         Payment paymentToView = new Payment("");
                         do {
@@ -172,6 +178,7 @@ public class ReceiptSystem {
 
                         paymentToView.viewReceipts();
                     } else if (viewChoice == 4){
+                        //If item type is selected, try to find type and print receipts
                         System.out.print("Enter item type : ");
                         String itemTypeToView = scanner.next();
                         ArrayList<Receipt> receiptsToView = findReceiptsByType(receipts ,itemTypeToView);
@@ -183,6 +190,7 @@ public class ReceiptSystem {
                         }
                     }
                     else if (viewChoice == 5){
+                        //Displays all receipts in the system
                         System.out.println();
                         if (!receipts.isEmpty()){
                             for (Receipt receiptToView : receipts){
@@ -197,6 +205,7 @@ public class ReceiptSystem {
                     break;
 
                 case 3:
+                    //Generate reports
                     System.out.println("\nGenerate report by:");
                     System.out.println("1. Customer");
                     System.out.println("2. Store");
@@ -205,6 +214,7 @@ public class ReceiptSystem {
                     int genrateChoice = getIntWithVerification(scanner, "Enter your choice: ");
 
                     if (genrateChoice == 1){
+                        //If customer is selected, try to find in the list and generate the report
                         System.out.print("Enter customer name: ");
                         String customerNameToView = scanner.next();
                         Customer customerToView = findCustomerByName(customers, customerNameToView);
@@ -215,6 +225,7 @@ public class ReceiptSystem {
                         }
                     }
                     else if (genrateChoice == 2){
+                        //If store is selected, try to find in the list and generate the report
                         System.out.print("Enter store name: ");
                         String storeNameToView = scanner.next();
                         Store storeToView = findStoreByName(stores, storeNameToView);
@@ -225,6 +236,7 @@ public class ReceiptSystem {
                         }
                     }
                     else if (genrateChoice == 3){
+                        //If payment type is selected, get user to select from a list and generate the report
                         invalid = true;
                         Payment paymentToView = new Payment("");
                         do {
@@ -248,6 +260,7 @@ public class ReceiptSystem {
 
                         paymentToView.generateReport();
                     }
+                    //If item type is selected, try to find in the list and generate report
                     else if (genrateChoice == 4){
                         System.out.print("Enter item type : ");
                         String itemTypeToView = scanner.next();
@@ -301,7 +314,7 @@ public class ReceiptSystem {
         return receiptOfType;
     }
 
-    //Gets an integer from the user. Verifies the input to make sure it is of type integer.
+    //Gets an integer from the user. Verifies the input to make sure it is of type integer
     private static int getIntWithVerification(Scanner scan, String message){
         while (true) {
             System.out.print(message);
@@ -313,7 +326,7 @@ public class ReceiptSystem {
         }
     }
 
-    //Gets a double from the user. Verifies the input to make sure it is of type double.
+    //Gets a double from the user. Verifies the input to make sure it is of type double
     private static double getDoubleWithVerification(Scanner scan, String message){
         while (true){
             System.out.print(message);
