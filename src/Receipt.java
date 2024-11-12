@@ -1,9 +1,11 @@
-import java.awt.desktop.SystemEventListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+//Represents a Receipt gotten from a store
 public class Receipt{
+    //Since the entire system revolves around Receipt, it contains many other classes and variables
     private static int nextId = 0;
+    //Tax rate is 0% by default, ReceiptSystem should change it on first load
     private static double taxRate = 0;
     private int id;
     private Store store;
@@ -64,6 +66,7 @@ public class Receipt{
         return store;
     }
 
+    //Gets total from all items, also sets the subtotal and tax
     public void calculateTotal(){
         for (Item item : items){
             subTotal += item.getTotal();
@@ -72,6 +75,7 @@ public class Receipt{
         total = subTotal + tax;
     }
 
+    //Prints the specific receipt instance
     public void viewReceipt(){
         NumberFormat format = NumberFormat.getCurrencyInstance();
 
@@ -95,6 +99,7 @@ public class Receipt{
         System.out.println("-----------------------");
     }
 
+    //View all receipts under a specific item type
     public static void viewReceipts(ArrayList<Receipt> receipts, String type){
         NumberFormat format = NumberFormat.getCurrencyInstance();
 
@@ -104,6 +109,7 @@ public class Receipt{
         }
     }
 
+    //Generate a report around a specific item type
     public static void generateReport(ArrayList<Receipt> receipts, String type){
         NumberFormat format =  NumberFormat.getCurrencyInstance();
         System.out.println("\n-----------Report-----------");
@@ -119,6 +125,7 @@ public class Receipt{
         ListHelper.printPaymentsWithTotalSpentFromReceipts(receipts);
     }
 
+    //Gets the total from a list of receipts
     private static double getTotalFromReceiptList(ArrayList<Receipt> receipts){
         double total = 0;
         for (Receipt receipt : receipts){

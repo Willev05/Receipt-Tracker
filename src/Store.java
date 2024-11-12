@@ -1,16 +1,12 @@
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
+//Represents a store that issued a receipt
 public class Store extends ReceiptsPrintable{
     private String name;
     private double total = 0;
 
     public Store(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override
@@ -23,10 +19,12 @@ public class Store extends ReceiptsPrintable{
         total += receipt.getTotal();
     }
 
+    //View all receipts under a specific store
     public void viewReceipts() {
         viewReceiptsHelper("Receipts for store " + name + ".");
     }
 
+    //Generate a report around a specific store
     public void generateReport(){
         NumberFormat format =  NumberFormat.getCurrencyInstance();
         System.out.println("\n-----------Report-----------");

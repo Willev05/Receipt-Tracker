@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
-/**
- * Card payment type. Used to represent debit/credit cards of visa/mastercard types.
- */
+//Card payment type. Used to represent debit/credit cards of visa/mastercard types.
 public class CardPayment extends Payment{
     private String cardType;
     private String nickName;
@@ -13,27 +11,13 @@ public class CardPayment extends Payment{
         this.nickName = nickName;
     }
 
-    public String getCardType() {
-        return cardType;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
+    //Neatly packs all payment information into a string
     @Override
     public String toString(){
         return nickName + ": " + type + " " + cardType;
     }
 
+    //Contains the process of creating a new payment type, then returns a new CardPayment
     public static CardPayment createNewCardPayment(){
         String paymentType, paymentIssuer, paymentNickName;
         Scanner scanner = new Scanner(System.in);
