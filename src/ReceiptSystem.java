@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class ReceiptSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
 
         // Create a list to store receipts
         ArrayList<Receipt> receipts = new ArrayList<>();
@@ -76,6 +75,7 @@ public class ReceiptSystem {
                         int quantity = getIntWithVerification(scanner, "Enter item quantity: ");
                         Item item = new Item(itemName, price, quantity);
                         receipt.addItem(item);
+                        break;
                     }
 
                     //gets user to select payment type from a list, or create a new one

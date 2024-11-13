@@ -21,7 +21,6 @@ public class CardPayment extends Payment{
     public static CardPayment createNewCardPayment(){
         String paymentType, paymentIssuer, paymentNickName;
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
 
         //Get information from user for new payment type
         System.out.print("Enter payment type (credit or debit): ");
